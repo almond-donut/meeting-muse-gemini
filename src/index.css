@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
@@ -78,14 +77,10 @@
 
   body {
     @apply bg-background text-foreground;
-    background-color: #f8fafc;
-    background-image: radial-gradient(circle at 1px 1px, #e2e8f0 1px, transparent 0);
-    background-size: 2rem 2rem;
+    background-color: #f1f5f9; /* A neutral, office-like light gray */
   }
 
   .dark body {
-    background-color: #020817;
-    background-image: radial-gradient(circle at 1px 1px, #1e293b 1px, transparent 0);
+    background-color: #0f172a; /* A neutral dark gray for dark mode */
   }
 }
-
