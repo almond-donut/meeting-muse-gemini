@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -71,7 +70,6 @@ const InputForm: React.FC<InputFormProps> = ({
               value={transcript}
               onChange={(e) => setTranscript(e.target.value)}
               className="min-h-[200px] text-base"
-              required
             />
           </div>
           <div className="space-y-2">
