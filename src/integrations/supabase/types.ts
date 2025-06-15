@@ -9,7 +9,92 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      action_items: {
+        Row: {
+          assignee: string | null
+          created_at: string
+          deadline: string | null
+          id: string
+          meeting_id: string
+          priority: Database["public"]["Enums"]["action_item_priority"] | null
+          status: Database["public"]["Enums"]["action_item_status"] | null
+          task: string
+          updated_at: string
+        }
+        Insert: {
+          assignee?: string | null
+          created_at?: string
+          deadline?: string | null
+          id?: string
+          meeting_id: string
+          priority?: Database["public"]["Enums"]["action_item_priority"] | null
+          status?: Database["public"]["Enums"]["action_item_status"] | null
+          task: string
+          updated_at?: string
+        }
+        Update: {
+          assignee?: string | null
+          created_at?: string
+          deadline?: string | null
+          id?: string
+          meeting_id?: string
+          priority?: Database["public"]["Enums"]["action_item_priority"] | null
+          status?: Database["public"]["Enums"]["action_item_status"] | null
+          task?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "action_items_meeting_id_fkey"
+            columns: ["meeting_id"]
+            isOneToOne: false
+            referencedRelation: "meetings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      meetings: {
+        Row: {
+          created_at: string
+          document_updates: Json | null
+          follow_up_email: Json | null
+          id: string
+          meeting_date: string | null
+          participants: string[] | null
+          summary: Json | null
+          title: string | null
+          transcript: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          document_updates?: Json | null
+          follow_up_email?: Json | null
+          id?: string
+          meeting_date?: string | null
+          participants?: string[] | null
+          summary?: Json | null
+          title?: string | null
+          transcript: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          document_updates?: Json | null
+          follow_up_email?: Json | null
+          id?: string
+          meeting_date?: string | null
+          participants?: string[] | null
+          summary?: Json | null
+          title?: string | null
+          transcript?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -18,7 +103,8 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      action_item_priority: "Low" | "Medium" | "High"
+      action_item_status: "Pending" | "In Progress" | "Completed"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -133,6 +219,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      action_item_priority: ["Low", "Medium", "High"],
+      action_item_status: ["Pending", "In Progress", "Completed"],
+    },
   },
 } as const

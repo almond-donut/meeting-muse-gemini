@@ -3,6 +3,8 @@ import Header from '@/components/meeting/Header';
 import InputForm from '@/components/meeting/InputForm';
 import OutputDisplay, { OutputData } from '@/components/meeting/OutputDisplay';
 import { Skeleton } from "@/components/ui/skeleton";
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from "@/components/ui/use-toast";
 
 const mockOutput: OutputData = {
   summary: "The team reviewed the Q2 project plan and discussed the new marketing strategy. A decision was made to increase the budget for social media advertising by 15%. The launch date is confirmed for July 15th.",
@@ -51,18 +53,39 @@ const Index = () => {
   const [meetingType, setMeetingType] = useState('general');
   const [output, setOutput] = useState<OutputData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setOutput(null);
 
-    // Simulate API call
-    console.log("Selected meeting type:", meetingType);
-    setTimeout(() => {
-      setOutput(mockOutput);
+    try {
+      const { data, error } = await supabase.functions.invoke('gemini-process', {
+        body: {
+          transcript,
+          participants,
+          docs,
+          meetingType,
+        },
+      });
+
+      if (error) {
+        throw error;
+      }
+      
+      setOutput(data);
+      
+    } catch (error: any) {
+      console.error('Error calling gemini-process function:', error);
+      toast({
+        title: "Error Generating Recap",
+        description: `${error.message}. Please ensure you have set the GEMINI_API_KEY in your Supabase project secrets and that it is correct.`,
+        variant: "destructive",
+      });
+    } finally {
       setIsLoading(false);
-    }, 2000);
+    }
   };
 
   return (
