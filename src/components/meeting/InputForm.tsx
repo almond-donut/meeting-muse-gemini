@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -41,7 +40,7 @@ const InputForm: React.FC<InputFormProps> = ({
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="space-y-2">
-        <Label htmlFor="meetingType" className="text-lg font-semibold">Meeting Type</Label>
+        <Label htmlFor="meetingType">Meeting Type</Label>
         <Select onValueChange={setMeetingType} defaultValue={meetingType}>
           <SelectTrigger id="meetingType" className="text-base">
             <SelectValue placeholder="Select a meeting type" />
@@ -55,7 +54,7 @@ const InputForm: React.FC<InputFormProps> = ({
         </Select>
       </div>
       <div className="space-y-2">
-        <Label htmlFor="transcript" className="text-lg font-semibold">Meeting Transcript</Label>
+        <Label htmlFor="transcript">Meeting Transcript</Label>
         <Textarea
           id="transcript"
           placeholder="Paste the full meeting transcript here..."
@@ -66,7 +65,7 @@ const InputForm: React.FC<InputFormProps> = ({
         />
       </div>
       <div className="space-y-2">
-        <Label htmlFor="participants" className="text-lg font-semibold">Participants</Label>
+        <Label htmlFor="participants">Participants</Label>
         <Input
           id="participants"
           placeholder="e.g., John Doe, Jane Smith"
@@ -76,7 +75,7 @@ const InputForm: React.FC<InputFormProps> = ({
         />
       </div>
       <div className="space-y-2">
-        <Label htmlFor="docs" className="text-lg font-semibold">Referenced Google Docs</Label>
+        <Label htmlFor="docs">Referenced Google Docs</Label>
         <Input
           id="docs"
           placeholder="Paste links to docs, separated by commas"

@@ -45,7 +45,7 @@ const OutputDisplay: React.FC<OutputDisplayProps> = ({ data }) => {
         <CardHeader>
           <CardTitle className="flex items-center text-2xl">
             <NotebookPen className="mr-3 h-7 w-7 text-primary" />
-            📝 Summary
+            Summary
           </CardTitle>
           <CardDescription>A concise overview of the meeting.</CardDescription>
         </CardHeader>
@@ -58,7 +58,7 @@ const OutputDisplay: React.FC<OutputDisplayProps> = ({ data }) => {
         <CardHeader>
           <CardTitle className="flex items-center text-2xl">
             <ListChecks className="mr-3 h-7 w-7 text-primary" />
-            ✅ Action Items
+            Action Items
           </CardTitle>
           <CardDescription>Specific tasks assigned to participants.</CardDescription>
         </CardHeader>
@@ -75,7 +75,7 @@ const OutputDisplay: React.FC<OutputDisplayProps> = ({ data }) => {
         <CardHeader>
           <CardTitle className="flex items-center text-2xl">
             <FilePenLine className="mr-3 h-7 w-7 text-primary" />
-            📄 Suggested Doc Edits
+            Suggested Doc Edits
           </CardTitle>
           <CardDescription>Proposed changes for the referenced documents.</CardDescription>
         </CardHeader>
@@ -88,7 +88,7 @@ const OutputDisplay: React.FC<OutputDisplayProps> = ({ data }) => {
         <CardHeader>
           <CardTitle className="flex items-center text-2xl">
             <Mail className="mr-3 h-7 w-7 text-primary" />
-            📬 Follow-up Email
+            Follow-up Email
           </CardTitle>
           <CardDescription>A ready-to-send recap email.</CardDescription>
         </CardHeader>
