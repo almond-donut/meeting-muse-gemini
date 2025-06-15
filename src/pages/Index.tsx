@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import Header from '@/components/meeting/Header';
 import InputForm from '@/components/meeting/InputForm';
@@ -49,6 +48,7 @@ const Index = () => {
   const [transcript, setTranscript] = useState('');
   const [participants, setParticipants] = useState('');
   const [docs, setDocs] = useState('');
+  const [meetingType, setMeetingType] = useState('general');
   const [output, setOutput] = useState<OutputData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -58,6 +58,7 @@ const Index = () => {
     setOutput(null);
 
     // Simulate API call
+    console.log("Selected meeting type:", meetingType);
     setTimeout(() => {
       setOutput(mockOutput);
       setIsLoading(false);
@@ -76,6 +77,8 @@ const Index = () => {
             setParticipants={setParticipants}
             docs={docs}
             setDocs={setDocs}
+            meetingType={meetingType}
+            setMeetingType={setMeetingType}
             handleSubmit={handleSubmit}
             isLoading={isLoading}
           />

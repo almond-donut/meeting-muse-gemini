@@ -4,6 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Loader2, Zap } from "lucide-react";
 
 interface InputFormProps {
@@ -13,6 +20,8 @@ interface InputFormProps {
   setParticipants: (value: string) => void;
   docs: string;
   setDocs: (value: string) => void;
+  meetingType: string;
+  setMeetingType: (value: string) => void;
   handleSubmit: (e: React.FormEvent) => void;
   isLoading: boolean;
 }
@@ -24,11 +33,27 @@ const InputForm: React.FC<InputFormProps> = ({
   setParticipants,
   docs,
   setDocs,
+  meetingType,
+  setMeetingType,
   handleSubmit,
   isLoading,
 }) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="space-y-2">
+        <Label htmlFor="meetingType" className="text-lg font-semibold">Meeting Type</Label>
+        <Select onValueChange={setMeetingType} defaultValue={meetingType}>
+          <SelectTrigger id="meetingType" className="text-base">
+            <SelectValue placeholder="Select a meeting type" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="general">General</SelectItem>
+            <SelectItem value="strategic">Strategic</SelectItem>
+            <SelectItem value="project">Project</SelectItem>
+            <SelectItem value="creative">Creative/Brainstorming</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
       <div className="space-y-2">
         <Label htmlFor="transcript" className="text-lg font-semibold">Meeting Transcript</Label>
         <Textarea
