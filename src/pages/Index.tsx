@@ -5,6 +5,7 @@ import OutputDisplay, { OutputData } from '@/components/meeting/OutputDisplay';
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from "@/components/ui/use-toast";
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 const mockOutput: OutputData = {
   summary: "The team reviewed the Q2 project plan and discussed the new marketing strategy. A decision was made to increase the budget for social media advertising by 15%. The launch date is confirmed for July 15th.",
@@ -90,8 +91,11 @@ const Index = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <Header />
-      <main className="grid md:grid-cols-2 md:gap-12 mt-8">
+      <div className="flex justify-between items-center mb-8">
+        <Header />
+        <ThemeToggle />
+      </div>
+      <main className="grid md:grid-cols-2 md:gap-12">
         <div className="mb-12 md:mb-0">
           <InputForm
             transcript={transcript}
