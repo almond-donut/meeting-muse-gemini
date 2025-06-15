@@ -1,11 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '@/components/meeting/Header';
 import InputForm from '@/components/meeting/InputForm';
 import OutputDisplay, { OutputData } from '@/components/meeting/OutputDisplay';
+import UserNav from '@/components/meeting/UserNav';
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from "@/components/ui/use-toast";
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { useAuth } from '@/contexts/AuthContext';
 
 const mockOutput: OutputData = {
   summary: "The team reviewed the Q2 project plan and discussed the new marketing strategy. A decision was made to increase the budget for social media advertising by 15%. The launch date is confirmed for July 15th.",
@@ -48,6 +51,8 @@ const LoadingSkeleton = () => (
 );
 
 const Index = () => {
+  const { user, loading: authLoading } = useAuth();
+  const navigate = useNavigate();
   const [transcript, setTranscript] = useState('');
   const [participants, setParticipants] = useState('');
   const [docs, setDocs] = useState('');
@@ -56,8 +61,23 @@ const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
+  useEffect(() => {
+    if (!authLoading && !user) {
+      navigate('/auth');
+    }
+  }, [user, authLoading, navigate]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!user) {
+      toast({
+        title: "Authentication Required",
+        description: "Please sign in to generate meeting recaps.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsLoading(true);
     setOutput(null);
 
@@ -68,6 +88,7 @@ const Index = () => {
           participants,
           docs,
           meetingType,
+          userId: user.id,
         },
       });
 
@@ -89,11 +110,28 @@ const Index = () => {
     }
   };
 
+  if (authLoading) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex justify-center items-center min-h-screen">
+          <Skeleton className="h-32 w-32" />
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return null;
+  }
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-8">
         <Header />
-        <ThemeToggle />
+        <div className="flex items-center gap-4">
+          <ThemeToggle />
+          <UserNav />
+        </div>
       </div>
       <main className="grid md:grid-cols-2 md:gap-12">
         <div className="mb-12 md:mb-0">
